@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Products</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family:'Bodoni Moda', serif;
+      background: #e3bbe349;
+      margin: 0;
+      padding: 18px;
+      padding-bottom: 0;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 15px;
+      max-width: 550px;
+      margin: auto;
+    }
+
+    .logo {
+      position: absolute; 
+      top: 2px;
+      left: 1px;
+      z-index: 10; 
+    }
+
+    .logo img {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+      filter: invert(90%) sepia(80%) saturate(150%) hue-rotate(150deg) brightness(120%);
+
+    }
+
+    .card {
+      background: #a2899c8e;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.2s;
+      font-size: 9px;
+      color:rgb(116, 114, 114);
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card img {
+      max-width: 100%;
+      border-radius: 6px;
+    }
+
+    .card h3 {
+      margin: 8px 0 4px;
+      font-size: 15px;
+      color: rgb(249, 240, 229);
+    }
+
+    .price {
+      color: #51404feb;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    @media (max-width: 400px) {
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+     @media (max-width: 200px) {
+      .container {
+        grid-template-columns: repeat(1, 1fr); 
+      }
+    }
+
+    /* Hamburger */
+    .hamburger {
+      position: absolute;
+      top: 11px;
+      right: 11px;
+      width: 18px;
+      height: 11px;
+      cursor: pointer;
+      z-index: 40;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .hamburger div {
+      width: 90%;
+      height: 2px;
+      background: linear-gradient(120deg, #eecef6, #7d6289);
+      border-radius: 1.5px;
+      transition: all 0.35s ease;
+      transform-origin: center;
+    }
+    .hamburger.open div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.open div:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open div:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 30;
+      height: 100vh;
+      width: 120px;
+      background: rgba(87, 58, 96, 0.682);
+      backdrop-filter: blur(10px);
+      transform: translateX(100%);
+      transition: transform 0.4s ease;
+      padding-top: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    nav.open {
+      transform: translateX(0);
+    }
+    nav ul {
+      list-style: none;
+      width: 100%;
+      padding-left: 20px;
+    }
+    nav ul li {
+      margin-bottom: 10px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      font-size:0.95rem;
+      font-weight: 400;
+      color: transparent;
+      background: linear-gradient(120deg, #f9d7ff, #b78dc8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      padding: 3px 0;
+      display: inline-block;
+      transition: color 0.3s ease;
+    }
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg,  #f9d7ff, #b78dc8);
+      transition: width 0.3s ease;
+      border-radius: 1px;
+    }
+    nav ul li a:hover::after,
+    nav ul li a.active::after {
+      width: 100%;
+    }
+    nav ul li a.active {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    
+    /*Form*/
+     .order-section {
+  max-width: 380px;          
+  margin: 50px auto;
+  padding: 20px 18px;
+  background: #b088aa2f;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  font-family:'Bodoni Moda', serif;
+  text-align: center;
+}
+
+.order-info h2 {
+  margin-bottom: 6px;
+  font-size: 1.3rem;
+  color:#51404feb;
+}
+
+.order-info p {
+  font-size: 0.75rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.order-info .note {
+  font-style: italic;
+  color: #777;
+  font-size: 0.65rem;
+}
+
+.order-info a {
+  color: #554052c7;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.form-group {
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 6px 1px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-size: 0.5rem;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #a77ecfb8;
+  box-shadow: 0 0 0 2px rgba(166,126,207,0.2);
+}
+
+.order-form button {
+  background: #a2899ceb;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-family:'Bodoni Moda', serif;
+  font-size: 0.75rem;
+  transition: background 0.3s ease;
+}
+
+.order-form button:hover {
+  background: #997090a2;
+}
+
+.confirmation-message {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #51404feb;
+  font-weight: 600;
+}
+footer {
+      margin: 0;
+      width: 95.7vw;
+      position: relative;
+      background: rgba(0, 0, 0, 0.4);
+      text-align: center;
+      font-size: 0.45rem;
+      padding: 10px;
+      color: #e0d6cf;
+      left: -18px;
+      }
+      .h1{
+        text-align:center; 
+        color: #3f2a47ee;
+        font-size: 1.8rem;
+      }
+   
+     @media (max-width: 300px) {
+      body{
+        padding: 5px;
+      }
+      .h1{
+        padding-top: 35px;
+        font-size: 1.3rem;
+      }
+      .container{
+        max-width: 150px;
+      }
+      .card{
+        font-size: 0.5rem;
+      }
+      .card h3, .price{
+        font-size: 0.7rem;
+      }
+      .order-info h2{
+        font-size: 1rem;
+      }
+      .order-info p, .order-info p.note{
+        font-size: 0.55rem;
+      }
+      .order-form button{
+        max-width:70px ;
+        font-size: 0.5rem;
+        margin-left: 35px;
+      }
+      footer { 
+        font-size: clamp(0.37rem, 2.2vw, 0.46rem); 
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="h1">Our Products</h1>
+   <div class="hamburger" id="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <nav id="nav-menu">
+    <ul>
+      <li><a href="Home.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="benefits.html">Benefits</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+    <a href="Home.html" class="logo">
+    <img src="logo.png" alt="LaVelle Logo" />
+  </a> 
+
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <img src="lavanda.jpg" alt="Produs1">
+      <h3>Dried Lavender</h3>
+      <p>100% natural dried lavender, perfect for aromatherapy, decoration, or DIY projects. 
+        Use it to create a calming atmosphere anywhere.</p>
+      <p class="price">20 RON/100gr</p>
+    </div>
+
+    <div class="card">
+      <img src="ulei.jpg" alt="Produs 2">
+      <h3>Lavender Face Serum</h3>
+      <p>100% natural lavender face serum, 30ml. 
+        Nourishes and hydrates your skin naturally, leaving a gentle, soothing fragrance.</p>
+      <p class="price">45 RON</p>
+    </div>
+
+    <div class="card">
+      <img src="parfum.jpg" alt="Produs 3">
+      <h3>Lavender Perfume</h3>
+      <p>100% natural lavender perfume, 100ml. 
+        Enjoy the fresh and relaxing scent of lavender throughout the day.</p>
+      <p class="price">190 RON</p>
+    </div>
+
+    <div class="card">
+      <img src="sapun.jpg" alt="Produs 4">
+      <h3>Lavender Soap</h3>
+      <p>Handmade 100% natural lavender soap. 
+        Gentle for all skin types, perfect for daily use.</p>
+      <p class="price">25 RON</p>
+    </div>
+
+    <div class="card">
+      <img src="bouquet.jpg" alt="Produs 5">
+      <h3>Decorative Bouquets</h3>
+      <p>Beautiful 100% natural lavender decorative bouquet. 
+        Ideal for home décor or gifting.</p>
+      <p class="price">20 RON</p>
+    </div>
+
+    <div class="card">
+      <img src="sarelavanda.jpg" alt="Produs 6">
+      <h3>Lavender Bath Salt</h3>
+      <p>100% natural lavender bath salt, 100g. 
+        Perfect for a relaxing and aromatic bath experience.</p>
+      <p class="price">30 RON/100gr</p>
+    </div>
+
+    <div class="card">
+      <img src="crema.jpg" alt="Produs 7">
+      <h3>Lavender Cream</h3>
+      <p>100% natural lavender cream for all areas of the body: face, hands, feet, and body. 
+        Moisturizes and soothes the skin naturally.</p>
+      <p class="price">50 RON</p>
+    </div>
+
+    <div class="card">
+      <img src="Crema si ulei.jpg" alt="Produs 8">
+      <h3>Lavender Body Oil</h3>
+      <p>100% natural lavender body oil, 75ml. 
+        Hydrates and softens the skin while leaving a delicate lavender scent.</p>
+      <p class="price">60 RON</p>
+    </div>
+
+     <div class="card">
+      <img src="lumanare.jpg" alt="Produs 9">
+      <h3>Lavender Candle</h3>
+      <p>100% natural lavender candle, 125g. 
+        Creates a calming and relaxing atmosphere in any room.</p>
+      <p class="price">35 RON</p>
+    </div>
+
+     <div class="card">
+      <img src="lavandapachet.jpg" alt="Produs 10">
+      <h3>Promo bundle 1</h3>
+      <p>100% natural promotional bundle containing: 80g lavender bath salt, 1 lavender soap, and 75ml body perfume. 
+        Perfect as a gift set.</p>
+      <p class="price">175 RON</p>
+    </div>
+
+     <div class="card">
+      <img src="pachetsare.jpg" alt="Produs 11">
+      <h3>Promo bundle 2</h3>
+      <p>100% natural promotional bundle containing: 50ml lavender cream, 50g sachet of bath salt, and 1 mini lavender soap. 
+        Ideal for trying multiple products.</p>
+      <p class="price">99 RON</p>
+    </div>
+
+     <div class="card">
+      <img src="box.jpg" alt="Produs 12">
+      <h3>Mystery box</h3>
+      <p>100% natural mystery box with 2 randomly selected large products. 
+        Surprise yourself or someone special with this unique lavender gift!</p>
+      <p class="price">50 RON</p>
+    </div>
+  </div>
+
+ <section class="order-section">
+  <div class="order-info">
+    <h2>Quick Order</h2>
+    <p>You can order directly using the form below.  
+    Simply leave your contact details and we will get back to you.  
+    Alternatively, call or WhatsApp us at  
+    <a href="tel:0733326304">0733 326 304</a>.</p>
+    <p class="note">Please specify the products you would like to order in the message field.</p>
+  </div>
+
+  <form class="order-form" onsubmit="return showConfirmation(event)">
+    <div class="form-group">
+      <label for="first-name">First Name</label>
+      <input type="text" id="first-name" name="first-name" required>
+    </div>
+    <div class="form-group">
+      <label for="last-name">Last Name</label>
+      <input type="text" id="last-name" name="last-name" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email">
+    </div>
+    <div class="form-group">
+      <label for="message">Message (products, notes, etc.)</label>
+      <textarea id="message" name="message" rows="2"></textarea>
+    </div>
+    <button type="submit">Submit Order</button>
+  </form>
+
+  <p id="confirmation-message" class="confirmation-message" style="display:none;">
+    ✅ Your order has been submitted. We will stay in touch!
+  </p>
+</section>
+
+<footer>
+    &copy; 2025 LaVelle. All rights reserved. | Designed with calm in mind.
+  </footer>
+
+  <script>
+    // Hamburger 
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navMenu.classList.toggle('open');
+    });
+
+    // Close menu 
+    document.querySelectorAll('#nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 768) {
+          hamburger.classList.remove('open');
+          navMenu.classList.remove('open');
+        }
+      });
+    });
+
+    // Current page
+    const links = document.querySelectorAll("#nav-menu a");
+    const currentPage = window.location.pathname.split("/").pop();
+
+    links.forEach(link => {
+      const linkPage = link.getAttribute('href');
+      if(linkPage === currentPage || (currentPage === "" && linkPage === "Home.html")) {
+        link.classList.add('active');
+      }
+    });
+
+    function showConfirmation(event) {
+  event.preventDefault(); 
+  document.querySelector(".order-form").style.display = "none";
+  document.getElementById("confirmation-message").style.display = "block";
+  return false;
+}
+
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family:  "Bodoni Moda", serif;
+      background-color: #bda9bd99;
+    }
+
+    .top-background {
+      position: relative;
+      width: 100%;
+      height: 55vh;
+      background-image: url('fundal2.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:rgba(41, 17, 45, 0.762);
+    }
+
+  
+    .paragraf1,
+    .paragraf2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      max-width: 1100px;      
+      margin: 24px auto;
+      padding: 10px 16px;
+      flex-wrap: nowrap;
+    }
+
+    .image-left,
+    .image-right {
+      flex: 0 0 auto;
+      border-radius: 12px;
+      overflow: hidden;       
+    }
+
+    .image-left img,
+    .image-right img {
+      height: clamp(162.5px, 24vw, 260px);
+      width: auto;
+      border-radius: 12px;
+      object-fit: cover;
+      transition: transform 0.2s ease-in-out;
+      transform: scale(1);
+      will-change: transform;
+      display: block;
+    }
+
+    .image-left img:hover,
+    .image-right img:hover {
+      transform: scale(1.05);
+    }
+
+    .text-right,
+    .text-left {
+      flex: 1;
+      min-width: 300px;
+      text-align:center; 
+    }
+
+    .card {
+      background: rgba(245, 227, 244, 0.379);
+      border: 1px solid rgba(123, 88, 136, 0.22);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    }
+
+    .card p {
+      margin: 0;
+      font-size: clamp(0.71rem, 1.1vw, 0.9rem);
+      line-height: 1.7;
+      font-weight: 300;
+      color: #3c2c3d;
+      hyphens: auto;
+    }
+
+    .logo {
+      position: absolute; 
+      top: 2px;
+      z-index: 10; 
+     
+    }
+
+    .logo img {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 70px 20px 40px;
+      font-family: 'Bodoni Moda', serif;
+    }
+    .hero h1 {
+      position:relative;
+      font-size: clamp(1.8rem, 4vw, 2rem); 
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      margin-top: 0px;
+      margin-bottom: 100px;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      color: #d9ccc3;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      position: absolute;
+      top: 11px;
+      right: 11px;
+      width: 18px;
+      height: 11px;
+      cursor: pointer;
+      z-index: 40;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .hamburger div {
+      width: 90%;
+      height: 2px;
+      background: linear-gradient(120deg, #eecef6, #7d6289);
+      border-radius: 1.5px;
+      transition: all 0.35s ease;
+      transform-origin: center;
+    }
+    .hamburger.open div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.open div:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open div:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 30;
+      height: 100vh;
+      width: 120px;
+      background: rgba(87, 58, 96, 0.682);
+      backdrop-filter: blur(10px);
+      transform: translateX(100%);
+      transition: transform 0.4s ease;
+      padding-top: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    nav.open {
+      transform: translateX(0);
+    }
+    nav ul {
+      list-style: none;
+      width: 100%;
+      padding-left: 20px;
+    }
+    nav ul li {
+      margin-bottom: 10px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      font-size:0.95rem;
+      font-weight: 400;
+      color: transparent;
+      background: linear-gradient(120deg, #f9d7ff, #b78dc8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      padding: 3px 0;
+      display: inline-block;
+      transition: color 0.3s ease;
+    }
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg,  #f9d7ff, #b78dc8);
+      transition: width 0.3s ease;
+      border-radius: 1px;
+    }
+    nav ul li a:hover::after,
+    nav ul li a.active::after {
+      width: 100%;
+    }
+    nav ul li a.active {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    
+    .newsletter {
+      text-align: center;
+      background: rgba(51, 2, 71, 0.552); 
+      color: #f4f4f4;
+      padding: 3px 1px;
+      border-radius:75px;
+      margin: 17px auto;
+      max-width: 330px;
+    }
+
+    .newsletter h2 { 
+      font-size: 18px; 
+      margin-bottom: 10px; 
+      color: #ffffff; 
+    }
+
+    .newsletter p { 
+      font-size: 9px; 
+      margin-bottom: 10px; 
+      color: #ffffff;
+    }
+
+    .newsletter-form { 
+      display: flex; 
+      flex-wrap: wrap;
+      justify-content: center; 
+      gap: 10px; 
+      max-width: 100%;
+    }
+
+    .newsletter-form input {
+      padding: 2px 1px ;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      flex: 1;
+     max-width: 200px;
+      font-size: 0.5rem;
+    }
+
+    .newsletter-form button {
+      background: #d0aedfd9;
+      color: white;
+      border: none;
+      padding: 5px 6px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.55rem;
+      max-width: 55px;
+      transition: background 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .newsletter-form button:hover { background: #8c62b5; }
+    .newsletter-msg { 
+      margin-top: 15px; 
+      font-size: 14px; 
+      color: #90ee90; 
+    }
+
+@media (max-width: 400px) {
+  .newsletter-form {
+    flex-direction: column;  
+    align-items: center;    
+  }
+
+  .newsletter-form input{
+    min-width: 3px;
+    font-size: 0.7rem;   
+    padding: 2px 2px;
+  }
+  .newsletter-form button {
+    width: 35%;
+    font-size: 0.7rem;   
+    padding: 2px 2px;
+  }
+}
+    footer {
+      background: rgba(0, 0, 0, 0.4);
+      text-align: center;
+      font-size: 0.45rem;
+      padding: 10px;
+      color: #e0d6cf;
+    }
+
+    @media (max-width: 400px) {
+      .paragraf1,
+      .paragraf2 { 
+        flex-direction: column; 
+        max-width: 94%; 
+      }
+
+      .paragraf2 { 
+        flex-direction: column-reverse; 
+      } 
+
+      .text-right,
+      .text-left { 
+        min-width: 0; 
+        text-align: left; 
+      }
+
+      .image-left img,
+      .image-right img { 
+        width: 100%; 
+        height: auto; 
+      }
+
+      .card p { 
+        font-size: clamp(0.7rem, 2.8vw, 0.85rem); 
+        line-height: 1.55; 
+      }
+
+      .hero h1 { 
+        font-size: clamp(1.3rem, 6vw, 1.8rem); 
+        margin-bottom: 40px; 
+      }
+
+      .newsletter h2 { 
+        font-size: clamp(0.95rem, 3.6vw, 1.15rem); 
+      }
+
+      .newsletter p { 
+        font-size: clamp(0.55rem, 2.8vw, 0.75rem); 
+      }
+      .newsletter-form button{
+        font-size: clamp(0.57rem, 2.5vw, 0.5rem);
+      }
+      .newsletter-form input{
+       font-size: clamp(0.55rem, 2vw, 0.4rem);
+      }
+      footer { 
+        font-size: clamp(0.353rem, 2.2vw, 0.46rem); 
+      }
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="top-background">
+    <div class="overlay"></div>
+    <a href="Home.html" class="logo">
+      <img src="logo.png" alt="LaVelle Logo" />
+    </a>
+    <header class="hero">
+      <h1>About Us</h1>
+    </header>
+
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <nav id="nav-menu">
+      <ul>
+        <li><a href="Home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="benefits.html">Benefits</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <section class="paragraf1">
+    <div class="image-left">
+      <img src="elemente.jpg" alt="Lavender Products" />
+    </div>
+    <div class="text-right">
+      <div class="card">
+        <p>
+          LaVelle was born from a deep love for lavender – 
+          a plant of delicate beauty and an unmistakable scent, known for its calming and healing effects. 
+          <br>
+          We’ve come to believe that lavender is more <br>than just a flower; 
+          it’s a state of mind: <br> peace, balance, and harmony.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="paragraf2">
+    <div class="text-left">
+      <div class="card">
+        <p>
+          Through LaVelle, we want to bring this essence of nature into your life. 
+          
+          Every product is crafted with care, soul, and deep respect for the <br>simple beauty of authenticity.
+           <br>
+          For us, lavender doesn’t just scent the air, <br>it touches the mind, soothes the soul, and creates moments of stillness in a fast-paced world.
+        </p>
+      </div>
+    </div>
+    <div class="image-right">
+      <img src="Crema si ulei.jpg" alt="Lavender Right Side" />
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <h2>Subscribe to our newsletter</h2>
+    <p>Receive special offers and news about our products</p>
+    <form class="newsletter-form">
+      <input type="email" placeholder="Enter your email address." required>
+      <button type="submit">Subscribe</button>
+    </form>
+    <p class="newsletter-msg"></p>
+  </section>
+
+  <footer>
+    &copy; 2025 LaVelle. All rights reserved. | Designed with calm in mind.
+  </footer>
+
+  <script>
+    // Hamburger 
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navMenu.classList.toggle('open');
+    });
+
+    // Close menu 
+    document.querySelectorAll('#nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 768) {
+          hamburger.classList.remove('open');
+          navMenu.classList.remove('open');
+        }
+      });
+    });
+
+    // Current page
+    const links = document.querySelectorAll('#nav-menu a');
+    const currentPage = window.location.pathname.split('/').pop();
+
+    links.forEach(link => {
+      const linkPage = link.getAttribute('href');
+      if (linkPage === currentPage || (currentPage === '' && linkPage === 'Home.html')) {
+        link.classList.add('active');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.querySelector('.newsletter-form');
+      const msg = document.querySelector('.newsletter-msg');
+
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const email = form.querySelector('input').value;
+
+          if (email) {
+            msg.textContent = 'Thank you for subscribing!💜';
+            msg.style.color = '#90ee90';
+            form.reset();
+          } else {
+            msg.textContent = 'Please enter a valid email.';
+            msg.style.color = 'green';
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
